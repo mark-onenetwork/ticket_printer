@@ -45,6 +45,7 @@ checkstyle {
 }
 
 repositories {
+    google()
     mavenCentral()
     jcenter()
 }
@@ -103,25 +104,14 @@ publishing {
             }
         }
     }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-
-    publications = ['mavenPublication']
-
-    pkg {
-        repo = 'maven'
-        name = 'printing'
-        userOrg = 'sealink'
-        licenses = ['MIT']
-        vcsUrl = "https://github.com/sealink/ticket_printer.git"
-        version {
-            name = project.version
-            desc = project.version
-            released  = new Date()
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/mark-onenetwork/ticket_printer"
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
-    publish = true
 }
